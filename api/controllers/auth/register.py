@@ -7,7 +7,6 @@ def api_register():
 
     fullname = data.get('fullname')
     jenis_kelamin = data.get('jenis_kelamin')
-    alergi_makanan = data.get('alergi_makanan')
     email = data.get('email')
     password = data.get('password')
 
@@ -16,11 +15,12 @@ def api_register():
         return jsonify({"message": "Data tidak lengkap, mohon lengkapi semua"}), 400
     elif Users.query.filter_by(email=email).first():
         return jsonify({"message": "Email sudah terdaftar"}), 400
+    elif len(password) < 8:
+        return jsonify({"message" : "password kurang dari 8 karakter" })
     else:
         new_user = Users(
             fullname = fullname,
             jenis_kelamin = jenis_kelamin,
-            alergi_makanan = alergi_makanan,
             email = email
         )
         new_user.set_password(password)

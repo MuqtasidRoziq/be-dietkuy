@@ -15,4 +15,7 @@ def api_login():
     elif not user.check_password(data.get('password')):
          return jsonify({"message": "Password salah, mohon periksa kembali password Anda"}), 401
     else:
-        return jsonify({"message": "Login gagal mohon periksa kembali email dan password Anda"}), 401
+        return jsonify({"message": "Login gagal mohon periksa kembali email dan password Anda"}), 
+        
+
+# def api_login_by_google():

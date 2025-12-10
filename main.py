@@ -4,6 +4,12 @@ from dotenv import load_dotenv
 from extension import db, mail, jwt
 from api.routes import api_auth_bp
 from flask_cors import CORS
+from flask_migrate import Migrate
+from models.users import Users
+from models.alergi import Alergi
+from models.user_health import UserHealth
+from models.posture_scan import PostureScan
+from models.recomendation import Recommendations
 
 load_dotenv()
 
@@ -24,6 +30,7 @@ app.config['MAIL_PASSWORD'] = os.getenv('MAIL_PASSWORD')
 db.init_app(app)
 mail.init_app(app)
 jwt.init_app(app)
+migrate = Migrate(app, db)
 
 # @app.after_request
 # def add_cors_headers(response):

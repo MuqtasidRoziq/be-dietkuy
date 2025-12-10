@@ -8,7 +8,6 @@ class Users(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     fullname = db.Column(db.String(80), unique=True, nullable=False)
     jenis_kelamin = db.Column(db.String(10), nullable=False)
-    alergi_makanan = db.Column(db.String(255), nullable=True)
     email = db.Column(db.String(120), unique=True, nullable=False)
     role = db.Column(db.String(50), default='user')
     password_hash = db.Column(db.String(255), nullable=False)
@@ -16,6 +15,12 @@ class Users(db.Model):
     reset_token_expiration = db.Column(db.DateTime, nullable=True)
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
     profile_picture = db.Column(db.String(255), nullable=True)
+
+
+    allergies = db.relationship("Alergi", backref="user", lazy=True)
+    health = db.relationship("UserHealth", backref="user", lazy=True)
+    scans = db.relationship("PostureScan", backref="user", lazy=True)
+    recommendations = db.relationship("Recommendations", backref="user", lazy=True)
 
     def set_password(self, password):
         self.password_hash = generate_password_hash(password)
